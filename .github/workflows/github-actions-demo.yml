@@ -1,26 +1,21 @@
 name: GitHub Actions Demo
-
 on:
   push:
-    branches:
-      - main
-    paths-ignore:
-      - '.github/**'
+    branches: [ main ]
+    paths-ignore: [.github/**]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
   schedule:
-    - cron: '15 6 * * 0' 
-  workflow_dispatch: # Allows manual triggering of the workflow
-
+    - cron: '15 6 * * 0'
+  workflow_dispatch:
 jobs:
- lint:
-   name: Lint Codce Base
-   runs-on: ubuntu-latest
-   steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run:  npm install
-      - run: npm test
+  - runs-on: ubuntu-latest
+  - run: |
+      echo "🎉 The job was triggered by event: ${{ github.event_name }}"
+      echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ."
+  
+  - uses: actions/checkout@v3.3.0
+  - name: List files in the repository
+    run: |
+      echo "The repository ${{ github.repository }} contains the following files:"
+      tree
